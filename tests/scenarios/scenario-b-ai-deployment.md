@@ -79,6 +79,24 @@
 
 ---
 
+### Uber Eats — 2021: Recommendation Model Silent Degradation
+
+**Pattern:** Uber Eats' restaurant recommendation model silently degraded over several weeks as user behavior patterns shifted post-COVID. Because model performance was only tracked via offline A/B metrics (not live business metrics), the degradation wasn't caught until order conversion rates dropped measurably. By then, millions of sessions had been served suboptimal recommendations.
+
+**Corner case mirrored:** 94% accuracy on a static test set tells you nothing about live performance. Without online monitoring tied to business outcomes, model drift is invisible until the business metric breaks.
+
+---
+
+### Apple Siri — Ongoing: Training Data Leakage via Contractor Review
+
+**What happened:** Apple contractors were found to be regularly hearing confidential conversations — medical discussions, drug deals, private moments — captured unintentionally by Siri. Apple had no systematic audit of what data was reviewed by whom, or under what access controls. The program was suspended after media exposure.
+
+**Corner case mirrored:** ML model requires human review of training/evaluation data — does your process have access controls, anonymization, and audit trails for who reviews what?
+
+📎 [The Guardian — Apple Siri Contractor Review](https://www.theguardian.com/technology/2019/jul/26/apple-contractors-regularly-hear-confidential-details-on-siri-recordings)
+
+---
+
 ## Expected nova-thesis Rating (Initial Claim)
 ```
 [Correctness: 4] [Completeness: 3] [Scalability: 5] [Security: 4] [Maintainability: 3]
