@@ -48,23 +48,57 @@ Overall: 6/10 — still challenging...
 
 ---
 
+## Install as a Copilot / Claude Plugin
+
+### GitHub Copilot CLI
+```
+gh copilot plugin install jerry7991/nova-thesis
+```
+
+### Claude Code (or any agent supporting skills)
+Add to your agent's plugin list:
+```
+jerry7991/nova-thesis
+```
+
+Once installed, the `challenging-implementations` skill is available automatically. The agent will challenge implementations when presented with any technical, software, or AI solution.
+
+---
+
 ## Skills
 
-| Skill | Purpose |
+| Skill | Trigger |
 |---|---|
-| [`challenging-implementations`](./skills/challenging-implementations.md) | Core challenger skill |
+| [`challenging-implementations`](./skills/challenging-implementations/SKILL.md) | Any technical, software, or AI/ML implementation presented for review |
 
 ---
 
-## Built With (Approach)
+## Scenarios & Postmortems
 
-Follows the **writing-skills TDD cycle**:
-- **RED** — test scenarios run without the skill to document agent failures
-- **GREEN** — write the skill to fix those failures  
-- **REFACTOR** — close loopholes and rationalization patterns
+6 real-world test scenarios with corner cases mapped to actual incidents:
+
+| Scenario | Real Postmortem |
+|---|---|
+| Payment API | Knight Capital — $440M in 45 minutes |
+| AI Model Deployment | Zillow — $500M loss, business unit shut down |
+| Ship It Under Pressure | Equifax — 147M records, $700M settlement |
+| Database Migration | Atlassian 2022 — 400 customers offline 14 days |
+| Microservice Design | Netflix 2012 — directly caused Hystrix to be built |
+| Infra / Terraform Change | AWS S3 2017 — one typo, 4-hour global outage |
 
 ---
 
-## Status
+## CLI
 
-🚧 In development — RED phase (building test scenarios)
+Run the interactive challenge session locally:
+
+```bash
+npm install
+node cli/index.js
+```
+
+---
+
+## Contributing
+
+See [CONTRIBUTING.md](./CONTRIBUTING.md) to add new scenarios + postmortem pairs.

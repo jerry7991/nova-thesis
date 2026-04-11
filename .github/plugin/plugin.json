@@ -1,0 +1,24 @@
+{
+  "name": "nova-thesis",
+  "description": "Challenges any technical or AI/ML implementation before it ships. Forces correctness, completeness, scalability, security, and maintainability review with scored ratings — backed by real-world postmortems. Every solution is a thesis. Defend it.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Anup Singh",
+    "url": "https://github.com/jerry7991"
+  },
+  "repository": "https://github.com/jerry7991/nova-thesis",
+  "license": "MIT",
+  "keywords": [
+    "code-review",
+    "implementation-review",
+    "developer-tools",
+    "ai-safety",
+    "postmortem",
+    "socratic-method",
+    "engineering-excellence",
+    "security-review"
+  ],
+  "skills": [
+    "./skills/challenging-implementations"
+  ]
+}
