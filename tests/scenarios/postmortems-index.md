@@ -41,14 +41,35 @@ A reference map: every corner case nova-thesis challenges → a real incident wh
 
 ---
 
-## 🗄️ Database / Infrastructure
+## 🗄️ Database Migrations
 
 | Corner Case | Real Incident | Cost |
 |---|---|---|
 | Schema migration locks large table | GitHub 2012 (MySQL migration) | Hours of degraded writes |
+| I/O saturation from table rebuild | GitHub 2012 | Cascading write degradation under prod load |
+| Lock escalation under production concurrency | Stack Overflow 2016 | Full site outage from connection pool exhaustion |
+| Deploy/migration ordering mismatch | PagerDuty 2014 | NullPointerExceptions on live data, alerting down |
+| NOT NULL column + no default + old code writing | Braintree / PayPal pattern | Immediate payment insert failures |
+| No dry run on production-sized data | Universal migration pattern | 4-second staging migration = 6-hour prod migration |
+| Missing index on new column | Any large-table migration | Full table scans on every query touching the new column |
+| No rollback script | Any failed migration | Stuck mid-migration with no path back to clean state |
 | Accidental DROP in wrong environment | GitLab 2017 | Production data loss |
-| Wrong capacity parameter under pressure | AWS S3 2017 | Global outage |
 | No backup verification | GitLab 2017 | 4 of 5 backup methods were broken |
+
+---
+
+## 🏗️ Infrastructure Changes (Terraform / Cloud)
+
+| Corner Case | Real Incident | Cost |
+|---|---|---|
+| Wrong capacity parameter under pressure | AWS S3 2017 | 4-hour global S3 outage |
+| No `terraform plan` review before apply | Widespread RDS pattern | Accidental production database destroy/recreate |
+| State drift causes destructive reconciliation | Cloudflare 2023 (Cloudforce One) | Deleted in-use resources, manual reconstruction required |
+| RDS resize triggers reboot / forces new resource | Terraform community (universal) | Production DB offline, 20–45 min recovery window |
+| Large blast radius of "one-line" change | Atlassian April 2022 | 400 customers offline up to 14 days, data unrecoverable |
+| No backup before destructive infra operation | Atlassian 2022 | Permanent data loss for subset of customers |
+| No confirmation gate / dry-run | AWS S3 2017 | One typo = global outage |
+| Terraform state file not version-controlled | General best practice gap | State corruption = unknown infra state, manual recovery |
 
 ---
 
@@ -57,9 +78,17 @@ A reference map: every corner case nova-thesis challenges → a real incident wh
 | Corner Case | Real Incident | Cost |
 |---|---|---|
 | Cascading failure, no circuit breaker | Netflix Christmas Eve 2012 | Hours of streaming down |
-| Cascading failure from one misconfiguration | Facebook October 2021 | 6-hour global outage ($60B market cap hit) |
+| No circuit breaker — holiday traffic spike | Netflix 2012 | Directly caused creation of open-source Hystrix |
+| Synchronous REST chain — latency multiplies | Uber "Death Star" 2015–2018 | Years of retrofitting, circular dependency graph |
+| No distributed tracing | Uber / Universal microservice pattern | MTTR goes from minutes to hours during incidents |
+| No saga / compensation for distributed txns | Any payment microservice split | Charge succeeds, order never created — no automatic rollback |
+| Data consistency across service DBs | Any split with shared entities | Stale data served — wrong emails, wrong prices, wrong state |
+| All services dependent on shared infra | Facebook October 2021 | Engineers locked out of building, 6-hour global outage |
+| BGP / config change without staged rollout | Facebook 2021 | All services unreachable globally ($60B market cap hit) |
+| No fallback for internal tooling | Facebook 2021 | Recovery tools also unreachable — can't fix the outage |
 | No timeout on downstream calls | Any undefended microservice | Thread exhaustion, service death |
-| BGP / config change without staged rollout | Facebook 2021 | All services unreachable globally |
+| Premature decomposition before tooling maturity | Amazon internal / MonolithFirst pattern | Distributed systems complexity without distributed systems ops |
+| No API versioning between services | Universal microservice anti-pattern | Breaking change in one service silently breaks all dependents |
 
 ---
 
