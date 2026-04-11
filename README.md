@@ -2,6 +2,9 @@
 
 > Every solution is a thesis. Defend it.
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
+[![Plugin](https://img.shields.io/badge/Copilot-Plugin-blue?logo=githubcopilot)](./skills/challenging-implementations/SKILL.md)
+
 **nova-thesis** is a framework for AI agents that challenges technical and software implementations — refusing to accept solutions at face value, asking hard questions, and rating them across multiple dimensions.
 
 Inspired by how stars go nova: intense, revealing, transformative.
