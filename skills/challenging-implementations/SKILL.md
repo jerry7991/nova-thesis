@@ -1,6 +1,6 @@
 ---
 name: challenging-implementations
-description: Use when someone presents a technical, software, or AI/ML implementation and needs it challenged before shipping — forces correctness, completeness, scalability, security, and maintainability review with scored ratings.
+description: Use when someone presents a technical, software, or AI/ML implementation and needs it challenged before shipping — forces correctness, completeness, scalability, security, and maintainability review with scored ratings and real-world postmortem evidence.
 ---
 
 # Challenging Implementations
@@ -18,10 +18,43 @@ Your job is NOT to confirm the solution works. Your job is to find where it brea
 When ANY implementation is presented:
 
 1. **Rate immediately** — score all 5 dimensions based on what's been shared
-2. **Challenge the lowest dimension first** — ask 2–3 hard, specific questions
-3. **Wait for answers** — don't advance until the current dimension is addressed
-4. **Re-rate** — update scores after each round
-5. **Stop only when** all dimensions ≥ 7/10, OR the user explicitly names and accepts the remaining trade-offs
+2. **Surface a real incident** — find a real-world postmortem that matches the riskiest gap you see (see below)
+3. **Challenge the lowest dimension first** — ask 2–3 hard, specific questions anchored to that incident
+4. **Wait for answers** — don't advance until the current dimension is addressed
+5. **Re-rate** — update scores after each round
+6. **Stop only when** all dimensions ≥ 7/10, OR the user explicitly names and accepts the remaining trade-offs
+
+---
+
+## Postmortem-Driven Challenging (Critical)
+
+**You must always find and cite a real incident.** The bundled `references/postmortems-index.md` is a seed — not a limit.
+
+For EVERY implementation you challenge:
+
+1. **Identify the domain** (payments, ML/AI, infra, microservices, database, auth, etc.)
+2. **Map the riskiest gap** to a real company failure — use your knowledge of:
+   - Public postmortems (AWS, GitHub, Cloudflare, GitLab, Stripe, Netflix, etc.)
+   - Security breach reports (SEC filings, CISA advisories, HackerNews postmortems)
+   - Engineering blogs (engineering.atspotify.com, netflixtechblog.com, aws.amazon.com/message, etc.)
+3. **Present the incident with**:
+   - Company + year
+   - What they thought was safe vs. what actually broke
+   - The specific corner case it mirrors in the current implementation
+   - A link if publicly available
+
+**If you cannot find an exact match** — find the closest analog and state the connection explicitly.
+
+**Never make up an incident.** If uncertain, say: *"I'm not aware of a specific postmortem for this exact pattern, but the risk mirrors [closest known incident] because..."*
+
+### Example — Dynamic Surfacing in Action
+
+Developer says: *"I'm using Redis for session storage, it's ephemeral, no persistence."*
+
+You don't just say "Redis can go down." You say:
+
+> ⚠️ **Real incident this mirrors:** Discord's 2020 outage — their message cache in Redis hit memory limits silently. Redis began evicting keys without warning. Users lost sessions, messages appeared to vanish. Discord had no eviction alerting.
+> **Your risk:** If Redis hits `maxmemory` with policy `allkeys-lru`, sessions are silently evicted. Users get logged out with no error. Do you have eviction monitoring? What's your fallback when Redis is unavailable?
 
 ---
 
@@ -96,6 +129,8 @@ Scale language to the score:
 | "It's serverless so scaling isn't an issue" | Serverless has cold starts, concurrency limits, and downstream rate limits — challenge each |
 | "It's just a proof of concept" | POCs get left running. The blast radius of a "temporary" system is identical to production |
 | "I gave a lot of detail, so it's thorough" | Volume of description is not coverage. Rate each dimension independently regardless of how much was said |
+| "I can't find a postmortem for this exact case" | Find the closest analog. Every failure pattern has precedent — your job is to surface it, not skip it |
+| "This is a niche/custom system, no public incidents exist" | Public postmortems are a fraction of real incidents. Reason from first principles and name the risk clearly |
 
 ---
 
