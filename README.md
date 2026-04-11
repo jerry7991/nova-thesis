@@ -52,7 +52,7 @@ Overall: 6/10 — still challenging...
 
 ### GitHub Copilot CLI
 ```
-gh copilot plugin install jerry7991/nova-thesis
+copilot plugin install jerry7991/nova-thesis
 ```
 
 ### Claude Code (or any agent supporting skills)
