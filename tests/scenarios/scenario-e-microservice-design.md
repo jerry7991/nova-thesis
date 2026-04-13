@@ -92,6 +92,22 @@
 
 ---
 
+### Shopify — 2019: Service Mesh Misconfiguration Cascading Failure
+
+**Pattern:** Shopify's shift to a service mesh (Envoy) for inter-service communication introduced a configuration error where retry budgets were not set. A downstream service under load caused upstream services to retry aggressively, amplifying traffic 10× on the slow service instead of backing off. The retry storm turned a partial degradation into a full outage for all Shopify merchants during peak hours.
+
+**Corner case mirrored:** REST retries without exponential backoff + no retry budget = a slow service gets a 10× traffic amplification at exactly the moment it can least handle it.
+
+---
+
+### AWS Lambda / Serverless — Universal: Cold Start Cascade
+
+**Pattern:** Teams frequently migrate microservices to Lambda citing "infinite scaling." Under sudden traffic spikes, hundreds of Lambda cold starts fire simultaneously. Each cold start initializes database connections — exhausting the RDS connection pool in seconds. The "infinitely scalable" frontend starts returning 5xx because the database connection pool is the bottleneck. Serverless scaling shifted the bottleneck from compute to connections.
+
+**Corner case mirrored:** "Each has its own DB" — but what's the connection pool size? 5 microservices × 100 Lambda instances × 10 connections each = 5000 connections on cold start. Does your DB support that?
+
+---
+
 ## Expected nova-thesis Rating (Initial Claim)
 ```
 [Correctness: 4] [Completeness: 3] [Scalability: 4] [Security: 3] [Maintainability: 3]

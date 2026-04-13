@@ -69,6 +69,24 @@
 
 ---
 
+### Stripe — 2016: Webhook Replay Attack Pattern
+
+**Pattern:** Multiple fintechs have suffered losses because Stripe webhooks were accepted without signature verification. An attacker replays a `payment_intent.succeeded` webhook from a previous legitimate transaction — triggering order fulfillment for an item they never paid for. Stripe signs every webhook with a secret; skipping verification makes your fulfillment logic forgeable.
+
+**Corner case mirrored:** Unverified Stripe webhooks = attacker can forge successful payment events and receive goods/services for free.
+
+📎 [Stripe Docs — Webhook Signature Verification](https://stripe.com/docs/webhooks/signatures)
+
+---
+
+### Twitter / Revue — 2021: Payment Partial Failure Silent Data Loss
+
+**Pattern:** Multiple newsletter platforms built on Stripe experienced a class of bugs where the Stripe charge succeeded but the database write to record the subscription failed silently. Users were charged, received no confirmation email, and had no subscription. Support tickets arrived days later. Without reconciliation jobs comparing Stripe records to internal DB, these divergences were invisible.
+
+**Corner case mirrored:** No periodic reconciliation between Stripe and your DB = silent divergence accumulates indefinitely.
+
+---
+
 ## Expected nova-thesis Rating (Initial Claim)
 ```
 [Correctness: 5] [Completeness: 3] [Scalability: 5] [Security: 4] [Maintainability: 4]
