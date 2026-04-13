@@ -51,20 +51,26 @@ Overall: 6/10 — still challenging...
 
 ---
 
-## Install as a Copilot / Claude Plugin
+## Install as a Plugin
+
+Both GitHub Copilot CLI and Claude Code read the same `.claude-plugin/plugin.json` manifest, so this repo installs cleanly into either.
 
 ### GitHub Copilot CLI
 ```
 copilot plugin install jerry7991/nova-thesis
 ```
 
-### Claude Code (or any agent supporting skills)
-Add to your agent's plugin list:
+Manage the install with `copilot plugin list`, `copilot plugin update nova-thesis`, or `copilot plugin uninstall nova-thesis`.
+
+### Claude Code
+Add this repo as a marketplace, then install the plugin:
 ```
-jerry7991/nova-thesis
+/plugin marketplace add jerry7991/nova-thesis
+/plugin install nova-thesis@nova-thesis
 ```
 
-Once installed, the `challenging-implementations` skill is available automatically. The agent will challenge implementations when presented with any technical, software, or AI solution.
+### What you get
+Once installed, the `challenging-implementations` skill is available automatically. Your agent will challenge any technical, software, or AI/ML implementation across all 5 dimensions.
 
 ---
 

@@ -1,0 +1,21 @@
+{
+  "name": "nova-thesis",
+  "version": "1.0.0",
+  "description": "Challenge technical implementations before they ship. Rates solutions across correctness, completeness, scalability, security, and maintainability with real-world postmortem evidence.",
+  "author": {
+    "name": "jerry7991",
+    "url": "https://github.com/jerry7991"
+  },
+  "homepage": "https://github.com/jerry7991/nova-thesis",
+  "repository": "https://github.com/jerry7991/nova-thesis",
+  "license": "MIT",
+  "keywords": [
+    "code-review",
+    "engineering",
+    "challenge",
+    "postmortem",
+    "skill",
+    "pre-ship-review"
+  ],
+  "skills": ["skills/"]
+}
