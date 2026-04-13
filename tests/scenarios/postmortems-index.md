@@ -104,6 +104,25 @@ A reference map: every corner case nova-thesis challenges → a real incident wh
 
 ---
 
+## 🧵 Queueing / Background Jobs (Sidekiq, Redis, Workers, Streams)
+
+| Corner Case | Real Incident | Cost |
+|---|---|---|
+| Queue broker becomes critical path for unrelated services | AWS Kinesis us-east-1 2020-11-25 | Hours of cascading outage across Cognito, CloudWatch, EventBridge, Lambda, ACM |
+| Async backlog keeps degrading service long after sync path recovers | GitHub 2018-10-21 | ~24 hours of webhook / Pages / search lag after a 43-second network blip |
+| Broker routing model silently wrong ("random" instead of "intelligent") | Heroku / Rap Genius 2013 | Years of head-of-line blocking inside dynos; public retraction, refunds |
+| Thundering retry herd + queue overload during peak load | Robinhood 2020-03-02 & 03-09 | Trading halted for a full day twice; $57M FINRA fine + class action |
+| Workers happily process jobs against a compromised DB mid-incident | GitLab 2017-02-01 | Sidekiq compounded the db1 wipe; no "pause the queue" primitive |
+| No durability on broker restart (default Redis) | Universal Sidekiq anti-pattern | Silent loss of every in-flight job on Redis crash / OOM |
+| Poison pill fills retry set, wedges workers | Universal background-job pattern | One bad payload starves the entire worker pool |
+| At-least-once delivery without idempotent handler | Every webhook postmortem (Stripe, Shopify, GitHub) | Duplicate emails, duplicate charges, duplicate order events |
+| Sidekiq dead-set silently drops at 10K cap | Default Sidekiq behavior | Failed webhooks / emails vanish with no alert |
+| Enqueue-in-request-path couples sync health to async broker | Rails + Redis anti-pattern | Redis blip → Puma thread exhaustion → full site 503 |
+| Unauthenticated Sidekiq Web UI | Widespread Rails app misconfig | One-click retry/kill/clear of production queues by anyone on the network |
+| Deserializing untrusted job payloads (Marshal/YAML/pickle) | Redis/Celery RCE pattern | Remote code execution in worker process |
+
+---
+
 ## Pattern: The Three Lies of "It's Fine"
 
 Every major incident has at least one of these at its root:
