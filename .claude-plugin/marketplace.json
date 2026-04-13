@@ -1,16 +1,27 @@
 {
   "name": "nova-thesis",
   "owner": {
-    "name": "jerry7991",
-    "url": "https://github.com/jerry7991"
+    "name": "jerry7991"
   },
-  "description": "Single-plugin marketplace for nova-thesis — challenges technical implementations across 5 dimensions before shipping.",
+  "metadata": {
+    "description": "Single-plugin marketplace for nova-thesis — challenges technical implementations across 5 dimensions before shipping.",
+    "version": "1.0.0"
+  },
   "plugins": [
     {
       "name": "nova-thesis",
-      "source": ".",
+      "source": {
+        "source": "github",
+        "repo": "jerry7991/nova-thesis"
+      },
       "description": "Challenge technical implementations across correctness, completeness, scalability, security, and maintainability with real-world postmortem evidence.",
       "version": "1.0.0",
+      "author": {
+        "name": "jerry7991"
+      },
+      "homepage": "https://github.com/jerry7991/nova-thesis",
+      "repository": "https://github.com/jerry7991/nova-thesis",
+      "license": "MIT",
       "category": "code-review",
       "keywords": [
         "code-review",
