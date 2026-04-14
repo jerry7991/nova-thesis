@@ -5,7 +5,7 @@
   },
   "metadata": {
     "description": "Single-plugin marketplace for nova-thesis — challenges technical implementations across 5 dimensions before shipping.",
-    "version": "1.0.1"
+    "version": "1.0.2"
   },
   "plugins": [
     {
@@ -15,7 +15,7 @@
         "repo": "jerry7991/nova-thesis"
       },
       "description": "Challenge technical implementations across correctness, completeness, scalability, security, and maintainability with real-world postmortem evidence.",
-      "version": "1.0.1",
+      "version": "1.0.2",
       "author": {
         "name": "jerry7991"
       },

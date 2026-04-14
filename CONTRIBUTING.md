@@ -173,12 +173,19 @@ Before opening a pull request, confirm every item:
 # Clone the repo
 git clone https://github.com/jerry7991/nova-thesis.git
 cd nova-thesis
+```
 
-# Install dependencies
-npm install
+To try the plugin locally, point Claude Code at this working tree:
 
-# Run the CLI
-node cli/index.js
+```bash
+claude --plugin-dir /path/to/nova-thesis
+```
+
+Or install from the marketplace for normal use:
+
+```bash
+claude plugin marketplace add jerry7991/nova-thesis
+claude plugin install nova-thesis@nova-thesis
 ```
 
 ---

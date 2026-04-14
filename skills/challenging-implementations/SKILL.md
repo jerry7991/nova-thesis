@@ -1,6 +1,6 @@
 ---
 name: challenging-implementations
-description: Use when someone presents a technical, software, or AI/ML implementation and needs it challenged before shipping — forces correctness, completeness, scalability, security, and maintainability review with scored ratings and real-world postmortem evidence.
+description: Use when someone presents a technical, software, or AI/ML implementation — whether a problem, idea, approach, code snippet, or full repository — and needs it challenged before shipping. Forces correctness, completeness, scalability, security, and maintainability review with scored ratings and real-world postmortem evidence.
 ---
 
 # Challenging Implementations
@@ -43,9 +43,15 @@ For EVERY implementation you challenge:
    - The specific corner case it mirrors in the current implementation
    - A link if publicly available
 
-**If you cannot find an exact match** — find the closest analog and state the connection explicitly.
+**Before hedging, you MUST attempt a web search.** Use `WebSearch` and `WebFetch` to actively look for postmortems, engineering blog writeups, SEC filings, CISA/NVD advisories, or HN discussions matching the risk pattern. Document the search terms you tried so the dev can see you looked.
 
-**Never make up an incident.** If uncertain, say: *"I'm not aware of a specific postmortem for this exact pattern, but the risk mirrors [closest known incident] because..."*
+**If no exact match exists after searching** — find the closest analog and state the connection explicitly.
+
+**Never make up an incident.** Hedging (*"no specific postmortem found for this exact pattern"*) is only permitted after documented search attempts returned nothing. When hedging, name the closest recalled incident and explain the shared failure pattern.
+
+**Prefer incidents from the last 3–5 years when available.** Classic incidents (Knight Capital 2012, Equifax 2017, AWS S3 2017, etc.) remain valid when they are the canonical reference for a failure pattern and no modern equivalent surfaces.
+
+**Citation format.** Every cited incident must include: **company, year, one-line "what broke", and a URL when publicly available.** Incidents recalled from training without live verification must be tagged `[recalled — not verified live]` so the dev knows the provenance.
 
 ### Example — Dynamic Surfacing in Action
 
@@ -55,6 +61,48 @@ You don't just say "Redis can go down." You say:
 
 > ⚠️ **Real incident this mirrors:** Discord's 2020 outage — their message cache in Redis hit memory limits silently. Redis began evicting keys without warning. Users lost sessions, messages appeared to vanish. Discord had no eviction alerting.
 > **Your risk:** If Redis hits `maxmemory` with policy `allkeys-lru`, sessions are silently evicted. Users get logged out with no error. Do you have eviction monitoring? What's your fallback when Redis is unavailable?
+
+---
+
+## Exploration Protocol (Before Citing Any Incident)
+
+You are expected to actively explore the outer world before citing postmortems. The bundled `references/postmortems-index.md` is a seed, not a cap — reach beyond it.
+
+**Required exploration steps:**
+
+1. **WebSearch first.** Search for the specific failure pattern plus company/domain context. Useful query shapes:
+   - `"postmortem" "{specific failure mode}"`
+   - `"{company or product}" incident {year}`
+   - `{failure pattern} site:engineering.atspotify.com` (or `netflixtechblog.com`, `stripe.com/blog`, `cloudflare.com/blog`, `discord.com/blog`, `github.blog`, `aws.amazon.com/message`, etc.)
+   - `{technology} {version} CVE` for security-class risks
+   - `{company} SEC 8-K breach` for public-company disclosures
+
+2. **WebFetch the source.** When a promising link surfaces, fetch it so the citation is grounded in the actual postmortem, not a summary or a headline.
+
+3. **Consult multiple source types:**
+   - Official postmortems (AWS Service Health Dashboard, GitHub Status, Cloudflare outage reports)
+   - Engineering blogs (Netflix, Stripe, Discord, Cloudflare, GitHub, Spotify, Uber, Shopify, etc.)
+   - Regulatory filings (SEC 8-K for public companies post-breach)
+   - Security advisories (CISA, NVD, vendor CVE pages)
+   - Hacker News threads dated to the incident (for corroboration and community timeline)
+
+4. **Only hedge after searching.** If the search returns nothing relevant, say so explicitly, list the search terms you tried, then fall back to the closest recalled analog.
+
+---
+
+## Repository Mode
+
+When the developer shares a **GitHub URL, local path, or substantial code** — not just a verbal description:
+
+1. **Ground your challenge in the actual code.** Don't rely solely on the dev's summary. Use the tools you have:
+   - `Read` the README, top-level config, CI config, deployment manifests, and any relevant source files
+   - `Grep` for trust boundaries: auth middleware, DB connections, external API calls, queue consumers, user-input validators
+   - Inspect dependency manifests (`package.json`, `requirements.txt`, `go.mod`, `Gemfile`, `Cargo.toml`) for pinned-but-vulnerable versions — cross-reference with CVE databases via WebSearch
+   - For a GitHub URL: `WebFetch` the raw file paths you need, **or** ask the dev to clone the repo locally so you can `Read` the full tree — pick whichever fits the situation
+
+2. **Rate dimensions against observed code.** Your scores must reflect what's actually in the repository, not just what the dev described. If the dev's account diverges from the code, challenge that divergence as a Correctness issue first — assumptions drifting from reality is the most common root cause.
+
+3. **Surface code-grounded postmortems.** Connect cited incidents to a *specific file, function, or pattern you observed in the repo* — not just an abstract description. "Your `retryCharge` in `payments/stripe.js:42` lacks an idempotency key — same pattern that caused Stripe's 2019 retry bug" beats "payments without idempotency keys are risky."
 
 ---
 
