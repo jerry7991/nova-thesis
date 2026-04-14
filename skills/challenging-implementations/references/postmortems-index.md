@@ -2,6 +2,8 @@
 
 A reference map: every corner case nova-thesis challenges → a real incident where skipping it cost millions.
 
+> **Note — this is a frozen seed list (last updated 2026-04).** It is a *starting point*, not an authoritative database. When challenging an implementation, always run `WebSearch` / `WebFetch` first to find current postmortems matching the specific context — then use the rows below as fallback anchors for canonical failure patterns. Dated rows with specific companies are the most reliable starting references; rows without dates (e.g., "widespread", "universal pattern") are genre hints, not citations.
+
 ---
 
 ## 💸 Payments / Transactions

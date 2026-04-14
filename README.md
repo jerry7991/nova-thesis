@@ -70,7 +70,7 @@ Add this repo as a marketplace, then install the plugin:
 ```
 
 ### What you get
-Once installed, the `challenging-implementations` skill is available automatically. Your agent will challenge any technical, software, or AI/ML implementation across all 5 dimensions.
+Once installed, the `challenging-implementations` skill is available automatically. Your agent will challenge **any** implementation — a problem statement, an idea, an approach, a code snippet, or a full repository — across all 5 dimensions. Categories aren't gated: if the dimensions apply, the challenge runs.
 
 ---
 
@@ -78,13 +78,13 @@ Once installed, the `challenging-implementations` skill is available automatical
 
 | Skill | Trigger |
 |---|---|
-| [`challenging-implementations`](./skills/challenging-implementations/SKILL.md) | Any technical, software, or AI/ML implementation presented for review |
+| [`challenging-implementations`](./skills/challenging-implementations/SKILL.md) | Any implementation — problem, idea, approach, code snippet, or full repository |
 
 ---
 
-## Scenarios & Postmortems
+## Example Coverage (Seed Scenarios)
 
-6 real-world test scenarios with corner cases mapped to actual incidents:
+The plugin challenges **any** implementation type by applying the 5 dimensions and searching the web for matching incidents. It is not limited to the categories below — these are illustrative test scenarios that live in `tests/scenarios/`:
 
 | Scenario | Real Postmortem |
 |---|---|
@@ -95,16 +95,7 @@ Once installed, the `challenging-implementations` skill is available automatical
 | Microservice Design | Netflix 2012 — directly caused Hystrix to be built |
 | Infra / Terraform Change | AWS S3 2017 — one typo, 4-hour global outage |
 
----
-
-## CLI
-
-Run the interactive challenge session locally:
-
-```bash
-npm install
-node cli/index.js
-```
+If your implementation doesn't fit these categories, the plugin still challenges it the same way: map the 5 dimensions, find the riskiest gap, surface a real-world incident (web search first, then recalled knowledge), and push until the thesis is defended.
 
 ---
 

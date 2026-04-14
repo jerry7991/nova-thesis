@@ -1,6 +1,6 @@
 {
   "name": "nova-thesis",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Challenge technical implementations before they ship. Rates solutions across correctness, completeness, scalability, security, and maintainability with real-world postmortem evidence.",
   "author": {
     "name": "jerry7991",
