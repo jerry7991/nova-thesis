@@ -16,6 +16,7 @@ All scenarios in `tests/scenarios/`. Each row = one domain. Use this to spot cov
 | J | [scenario-j-data-pipeline.md](scenario-j-data-pipeline.md) | Data Pipelines / ETL | Knight Capital data 2012, Meta silent corruption, Spotify Charts 2023 | 3.4/10 🔴 |
 | K | [scenario-k-security-breach.md](scenario-k-security-breach.md) | Security Breaches | Capital One SSRF 2019, Uber IDOR 2016, Twitter insider 2020, Twitch 2021 | 2.6/10 🔴 |
 | L | [scenario-l-mobile-release.md](scenario-l-mobile-release.md) | Mobile Releases | Facebook iOS crash loop 2014, Pokémon GO launch 2016, iOS force-update pattern | 3.0/10 🔴 |
+| M | [scenario-m-queueing-system.md](scenario-m-queueing-system.md) | Queueing / Background Jobs (Sidekiq, Redis, workers) | AWS Kinesis us-east-1 2020, GitHub 2018, Heroku/Rap Genius 2013, Robinhood 2020, GitLab 2017 | 3.0/10 🔴 |
 
 ---
 
@@ -23,16 +24,17 @@ All scenarios in `tests/scenarios/`. Each row = one domain. Use this to spot cov
 
 | Risk Category | Scenarios that cover it |
 |---|---|
-| Data loss / corruption | A, C, D, F, J |
-| Cascading failures | A, E, F, H |
-| Silent degradation | B, D, J, H |
-| Security / auth gaps | G, K, A, E |
+| Data loss / corruption | A, C, D, F, J, M |
+| Cascading failures | A, E, F, H, M |
+| Silent degradation | B, D, J, H, M |
+| Security / auth gaps | G, K, A, E, M |
 | Supply chain / external deps | I, H |
 | Time pressure / shortcuts | C, F, D |
-| Scale / load surprises | B, D, E, L |
+| Scale / load surprises | B, D, E, L, M |
 | Mobile / client-side | L |
 | AI / ML specific | B |
 | Infra automation | F |
+| Async / queues / workers | M |
 
 ---
 
