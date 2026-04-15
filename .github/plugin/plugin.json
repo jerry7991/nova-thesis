@@ -1,7 +1,7 @@
 {
   "name": "nova-thesis",
   "description": "Challenges any technical or AI/ML implementation before it ships. Forces correctness, completeness, scalability, security, and maintainability review with scored ratings — backed by real-world postmortems. Every solution is a thesis. Defend it.",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "author": {
     "name": "Anup Singh",
     "url": "https://github.com/jerry7991"

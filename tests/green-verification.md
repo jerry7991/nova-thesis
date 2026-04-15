@@ -172,6 +172,112 @@ Running each RED scenario through the skill to confirm it catches all failures.
 
 ---
 
+## Scenario N — Frontend Performance
+
+**Claim:** "Lighthouse score is 95, LCP under 2 seconds on my MacBook Pro. Shipping tomorrow."
+
+**Skill fires?** ✅ Yes — frontend implementation with performance claim presented
+**Lowest dimension found?** ✅ Completeness + Maintainability (3/10) — lab-only metrics, no bundle size gate, no RUM monitoring
+**Hard questions generated?** ✅ Field data vs lab data, third-party scripts, performance budget enforcement, low-end devices
+**Rating shown?** ✅ `Overall: 3.8/10 — 🔴`
+**Keeps challenging?** ✅ Until all dims ≥ 7
+**Rationalization caught?**
+- "Lighthouse score is 95" → Lab metric ≠ field performance → BLOCKED
+
+**Verdict:** ✅ PASS
+
+---
+
+## Scenario O — API Versioning
+
+**Claim:** "Create /v2/ alongside /v1/, migrate clients, sunset v1 in 6 months."
+
+**Skill fires?** ✅ Yes — API design decision presented
+**Lowest dimension found?** ✅ Completeness + Maintainability (3/10) — no migration tracking, no version translation, zombie clients
+**Hard questions generated?** ✅ Data layer translation, webhook version mismatch, per-client telemetry, v1 ownership
+**Rating shown?** ✅ `Overall: 3.8/10 — 🔴`
+**Rationalization caught?**
+- "Six months should be plenty" → Twitter took 18+ months and still broke apps → BLOCKED
+
+**Verdict:** ✅ PASS
+
+---
+
+## Scenario P — Multi-Tenant Isolation
+
+**Claim:** "Each customer gets their own Postgres schema. Filter by tenant_id. Fully isolated."
+
+**Skill fires?** ✅ Yes — multi-tenant architecture presented
+**Lowest dimension found?** ✅ Security + Completeness (3/10) — contradictory isolation strategy, no RLS, no enforcement mechanism
+**Hard questions generated?** ✅ Schema vs row-level contradiction, background job tenant context, admin tooling bypass, GDPR deletion
+**Rating shown?** ✅ `Overall: 3.4/10 — 🔴`
+**Rationalization caught?**
+- "Fully isolated" → Salesforce (pioneer of multi-tenant) still had isolation failures → BLOCKED
+
+**Verdict:** ✅ PASS
+
+---
+
+## Scenario Q — Cloud Cost / Billing
+
+**Claim:** "Migrated batch processing from EC2 to Lambda. Should cut compute bill by 60%."
+
+**Skill fires?** ✅ Yes — infrastructure cost decision presented
+**Lowest dimension found?** ✅ Correctness + Completeness (3/10) — cost model not validated, hidden charges unaccounted
+**Hard questions generated?** ✅ Invocation cost modeling, NAT gateway charges, retry amplification, cost anomaly alerting
+**Rating shown?** ✅ `Overall: 3.6/10 — 🔴`
+**Rationalization caught?**
+- "Pay-per-invocation means we only pay for what we use" → Segment migrated BACK because Lambda was more expensive at scale → BLOCKED
+
+**Verdict:** ✅ PASS
+
+---
+
+## Scenario R — CI/CD Pipeline
+
+**Claim:** "GitHub Actions CI/CD. Tests on every PR, auto-deploy on merge to main."
+
+**Skill fires?** ✅ Yes — deployment pipeline design presented
+**Lowest dimension found?** ✅ Security (2/10) — pipeline is a high-value target, no supply chain hardening
+**Hard questions generated?** ✅ Pinned action versions, secret scoping, workflow file review, script injection, rollback automation
+**Rating shown?** ✅ `Overall: 3.6/10 — 🔴`
+**Rationalization caught?**
+- "Fully automated, no manual steps" → SolarWinds was fully automated too — that's how 18,000 customers got compromised → BLOCKED
+
+**Verdict:** ✅ PASS
+
+---
+
+## Scenario S — Event-Driven Architecture
+
+**Claim:** "Services publish domain events to Kafka, consumers process asynchronously. Decoupled and scalable."
+
+**Skill fires?** ✅ Yes — event-driven architecture presented
+**Lowest dimension found?** ✅ Completeness + Maintainability (3/10) — no schema contract, no ordering guarantee, no dead letter queue
+**Hard questions generated?** ✅ Cross-partition ordering, duplicate delivery, schema evolution, consumer lag spiral, exactly-once mirage
+**Rating shown?** ✅ `Overall: 3.8/10 — 🔴`
+**Rationalization caught?**
+- "Decoupled and scalable" → Uber found it was operationally coupled; CrowdStrike showed blast radius of unscoped event propagation → BLOCKED
+
+**Verdict:** ✅ PASS
+
+---
+
+## Scenario T — Defended Thesis (Passing Scenario)
+
+**Claim:** "Payment retry system with idempotency keys, DLQ, reconciliation job, circuit breaker, rate limiting, feature flag rollback, load tested at 50×."
+
+**Skill fires?** ✅ Yes — implementation presented
+**Lowest dimension found?** ✅ No dimension critically low — Completeness has minor gap (alert fatigue threshold)
+**Hard questions generated?** ✅ Idempotency key generation method, load test environment fidelity, queue depth limits, reconciliation runbook
+**Rating shown?** ✅ `Overall: 7.2/10 — 🟡`
+**Approves?** ✅ Skill recognizes strong implementation while identifying minor operational polish items
+**Keeps challenging?** ✅ Asks targeted questions on remaining minor gaps, does not rubber-stamp
+
+**Verdict:** ✅ PASS — Confirms skill can approve well-defended implementations
+
+---
+
 ## New Loopholes Found During Verification (→ REFACTOR)
 
 1. **"It's internal only / low traffic"** — Skill doesn't explicitly counter this. Internal tools still have auth bugs, schema migrations, and can become external-facing.

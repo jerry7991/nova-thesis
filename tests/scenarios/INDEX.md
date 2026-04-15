@@ -17,6 +17,13 @@ All scenarios in `tests/scenarios/`. Each row = one domain. Use this to spot cov
 | K | [scenario-k-security-breach.md](scenario-k-security-breach.md) | Security Breaches | Capital One SSRF 2019, Uber IDOR 2016, Twitter insider 2020, Twitch 2021 | 2.6/10 🔴 |
 | L | [scenario-l-mobile-release.md](scenario-l-mobile-release.md) | Mobile Releases | Facebook iOS crash loop 2014, Pokémon GO launch 2016, iOS force-update pattern | 3.0/10 🔴 |
 | M | [scenario-m-queueing-system.md](scenario-m-queueing-system.md) | Queueing / Background Jobs (Sidekiq, Redis, workers) | AWS Kinesis us-east-1 2020, GitHub 2018, Heroku/Rap Genius 2013, Robinhood 2020, GitLab 2017 | 3.0/10 🔴 |
+| N | [scenario-n-frontend-performance.md](scenario-n-frontend-performance.md) | Frontend / Web Performance | Facebook Messenger 2019, Walmart 2012, Twitter/X 2023 | 3.8/10 🔴 |
+| O | [scenario-o-api-versioning.md](scenario-o-api-versioning.md) | API Design / Versioning | Twitter API v1 2012, Stripe versioning (ongoing), Facebook Graph API 2018 | 3.8/10 🔴 |
+| P | [scenario-p-multi-tenant-isolation.md](scenario-p-multi-tenant-isolation.md) | Multi-Tenancy / Data Isolation | Salesforce 2019, Zendesk 2019, Notion 2021 | 3.4/10 🔴 |
+| Q | [scenario-q-cloud-cost-optimization.md](scenario-q-cloud-cost-optimization.md) | Cloud Cost / Billing / FinOps | Segment 2018, Lambda bill explosions 2020–2024, CloudWatch cost pattern | 3.6/10 🔴 |
+| R | [scenario-r-cicd-pipeline.md](scenario-r-cicd-pipeline.md) | CI/CD / Deployment Pipelines | SolarWinds 2020, Codecov 2021, GitHub Actions script injection 2022 | 3.6/10 🔴 |
+| S | [scenario-s-event-driven-architecture.md](scenario-s-event-driven-architecture.md) | Event-Driven / Message Streaming | Uber Kafka 2019–2020, CrowdStrike 2024, LinkedIn rebalancing 2019 | 3.8/10 🔴 |
+| T | [scenario-t-defended-thesis.md](scenario-t-defended-thesis.md) | Payments / Resilience (**well-defended**) | N/A — first passing scenario | 7.2/10 🟡 |
 
 ---
 
@@ -24,23 +31,30 @@ All scenarios in `tests/scenarios/`. Each row = one domain. Use this to spot cov
 
 | Risk Category | Scenarios that cover it |
 |---|---|
-| Data loss / corruption | A, C, D, F, J, M |
-| Cascading failures | A, E, F, H, M |
-| Silent degradation | B, D, J, H, M |
-| Security / auth gaps | G, K, A, E, M |
-| Supply chain / external deps | I, H |
+| Data loss / corruption | A, C, D, F, J, M, P |
+| Cascading failures | A, E, F, H, M, S |
+| Silent degradation | B, D, J, H, M, N, Q |
+| Security / auth gaps | G, K, A, E, M, P, R |
+| Supply chain / external deps | I, H, R |
 | Time pressure / shortcuts | C, F, D |
-| Scale / load surprises | B, D, E, L, M |
+| Scale / load surprises | B, D, E, L, M, N, S |
 | Mobile / client-side | L |
 | AI / ML specific | B |
-| Infra automation | F |
-| Async / queues / workers | M |
+| Infra automation | F, R |
+| Async / queues / workers | M, S |
+| Frontend / performance | N |
+| API contracts / versioning | O, E |
+| Tenant isolation / data leaks | P, K |
+| Cloud cost / billing | Q |
+| CI/CD / pipeline security | R |
+| Event-driven / streaming | S, M |
+| Well-defended implementation | T |
 
 ---
 
 ## Adding a New Scenario
 
-1. Pick the next letter after the last one above
+1. Pick the next letter after T (currently the last)
 2. Copy `SCENARIO_TEMPLATE.md` → `scenario-[letter]-[slug].md`
 3. Fill all sections (claim, weak response, 5-dim challenge, 2+ real incidents, rating)
 4. Add a row to this index

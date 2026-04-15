@@ -94,6 +94,72 @@ A reference map: every corner case nova-thesis challenges → a real incident wh
 
 ---
 
+## 🖥️ Frontend / Web Performance
+
+| Corner Case | Real Incident | Cost |
+|---|---|---|
+| No bundle size gate — incremental bloat | Facebook Messenger 2019 | Multi-year rebuild (Project LightSpeed) |
+| Lab metrics mask real-world performance | Walmart 2012 correlation study | 2% conversion loss per second of load time |
+| Third-party script bloat invisible in audits | Twitter/X 2023 pattern | Degraded UX, invisible in Lighthouse |
+| No performance budget enforcement | Universal frontend pattern | Gradual regression to unusable on low-end devices |
+
+---
+
+## 📡 API Versioning / Contracts
+
+| Corner Case | Real Incident | Cost |
+|---|---|---|
+| Forced sunset breaks ecosystem trust | Twitter API v1.0 2012–2013 | 18+ months of extensions, developer exodus |
+| No version translation layer | Stripe versioning (ongoing, positive) | Stripe maintains 100+ versions — gold standard |
+| Breaking changes in "non-breaking" updates | Facebook Graph API 2018 | Thousands of broken apps, repeated across versions |
+| No per-client migration tracking | Universal API pattern | "Migrate over time" = never migrate |
+
+---
+
+## 🏢 Multi-Tenancy / Data Isolation
+
+| Corner Case | Real Incident | Cost |
+|---|---|---|
+| Permission scope failure leaks cross-tenant data | Salesforce 2019 | Services taken offline, unknown breach extent |
+| Tenant isolation bypassed via alternative path | Zendesk 2019 | Cross-customer ticket access |
+| Permission propagation race during migration | Notion 2021 | Private pages temporarily visible across workspaces |
+| Missing WHERE clause on tenant_id | Universal SaaS pattern | Silent data leak — often discovered by customers |
+
+---
+
+## 💰 Cloud Cost / Billing
+
+| Corner Case | Real Incident | Cost |
+|---|---|---|
+| Lambda costs exceed EC2 at sustained volume | Segment 2018 | Migrated BACK to containers |
+| Recursive Lambda invocation — infinite loop | Multiple companies 2020–2024 | $10K–$50K surprise bills |
+| CloudWatch logging costs exceed compute | Adobe / Netflix pattern | Log ingestion > Lambda cost |
+| NAT gateway hidden data transfer charges | Universal Lambda-in-VPC pattern | $0.045/GB adds up silently |
+
+---
+
+## 🔄 CI/CD / Deployment Pipelines
+
+| Corner Case | Real Incident | Cost |
+|---|---|---|
+| Build pipeline compromised — supply chain attack | SolarWinds 2020 | 18,000 customers compromised, US government breach |
+| CI dependency exfiltrates secrets | Codecov 2021 | Twitch, HashiCorp, hundreds of companies affected |
+| Script injection via PR metadata | GitHub Actions 2022 pattern | Untrusted code executes with deploy credentials |
+| No rollback automation | Universal deploy pattern | 10+ minutes through CI to revert — too slow during incident |
+
+---
+
+## 📨 Event-Driven Architecture
+
+| Corner Case | Real Incident | Cost |
+|---|---|---|
+| No schema registry — producer breaks consumers | Uber Kafka 2019–2020 | Frequent consumer failures, custom tooling required |
+| Event cascade with no staged rollout | CrowdStrike 2024 | 8.5M machines affected simultaneously |
+| Consumer rebalancing storm halts processing | LinkedIn Kafka 2019 | Minutes of zero message processing |
+| Out-of-order cross-partition delivery | Universal Kafka pattern | Orphan records, inconsistent state |
+
+---
+
 ## 🔐 Security
 
 | Corner Case | Real Incident | Cost |
