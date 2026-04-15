@@ -61,7 +61,6 @@ Both GitHub Copilot CLI and Claude Code read the same `.claude-plugin/plugin.jso
 ### GitHub Copilot CLI
 ```
 copilot plugin install jerry7991/nova-thesis
-copilot plugin update nova-thesis #For update
 ```
 
 Manage the install with `copilot plugin list`, `copilot plugin update nova-thesis`, or `copilot plugin uninstall nova-thesis`.
