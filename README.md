@@ -6,6 +6,7 @@
 
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](./LICENSE)
+[![Latest release](https://img.shields.io/github/v/release/jerry7991/nova-thesis?sort=semver&display_name=tag)](https://github.com/jerry7991/nova-thesis/releases/latest)
 [![Plugin](https://img.shields.io/badge/Copilot-Plugin-blue?logo=githubcopilot)](./skills/challenging-implementations/SKILL.md)
 
 **nova-thesis** is a framework for AI agents that challenges technical and software implementations — refusing to accept solutions at face value, asking hard questions, and rating them across multiple dimensions.
